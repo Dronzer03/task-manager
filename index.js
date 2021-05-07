@@ -1,0 +1,24 @@
+const express = require('express');
+require('./db/mongoose.js');
+const User = require('./models/user.js');
+const Task = require('./models/task.js');
+const userRouter = require('./routers/user.js');
+const taskRouter = require('./routers/task.js');
+const path = require('path');
+
+const app = express();
+const port = process.env.PORT || 3000
+
+app.use(express.static(path.join(__dirname, 'build')))
+app.use(express.json())
+
+app.get('/', function(req, res){
+    res.sendFile(path.join(__dirname, 'build', index.html))
+})
+
+app.use(userRouter);
+app.use(taskRouter);
+
+app.listen(port, ()=>{
+    console.log('Server is up on port '+port);
+})
